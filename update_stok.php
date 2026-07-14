@@ -5,8 +5,7 @@ if (session_status() === PHP_SESSION_NONE) {
 include 'koneksi.php';
 include 'auth.php';
 
-// BUG DIPERBAIKI: sebelumnya endpoint ini bisa diakses siapa saja
-// (tanpa login admin) untuk mengubah stok produk.
+//butuh role admin buat akses
 require_admin();
 
 if (isset($_POST['update'])) {
@@ -18,8 +17,6 @@ if (isset($_POST['update'])) {
         exit();
     }
 
-    // BUG DIPERBAIKI: query sebelumnya menyisipkan variabel langsung
-    // (rentan SQL Injection). Sekarang pakai prepared statement.
     $stmt = $conn->prepare("UPDATE produk SET stok = stok + ? WHERE id = ?");
     $stmt->bind_param("ii", $tambah, $id);
 
