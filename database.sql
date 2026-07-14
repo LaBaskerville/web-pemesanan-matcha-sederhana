@@ -1,10 +1,3 @@
--- =========================================================
--- DATABASE: dbmatcha
--- Skema relasional untuk aplikasi Web Semantik Matcha
--- Jalankan file ini melalui phpMyAdmin (XAMPP) atau:
---   mysql -u root -p < database.sql
--- =========================================================
-
 CREATE DATABASE IF NOT EXISTS dbmatcha
   CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 
@@ -79,7 +72,7 @@ CREATE TABLE pesanan_detail (
     id_detail      INT AUTO_INCREMENT PRIMARY KEY,
     id_pesanan     INT NOT NULL,
     id_produk      INT NULL,
-    jenis_matcha   VARCHAR(100) NOT NULL,              -- snapshot nama produk saat transaksi
+    jenis_matcha   VARCHAR(100) NOT NULL,              
     jumlah_pesan   INT NOT NULL,
     harga_satuan   DECIMAL(10,2) NOT NULL DEFAULT 0,
     subtotal       DECIMAL(10,2) NOT NULL DEFAULT 0,
@@ -88,7 +81,7 @@ CREATE TABLE pesanan_detail (
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------
--- Data awal (seed) untuk tabel produk
+-- Data awal (seed) untuk tabel produk 
 -- ---------------------------------------------------------
 INSERT INTO produk (nama_produk, deskripsi, harga, stok) VALUES
 ('Matcha Premium Ceremonial', 'Matcha kualitas upacara, warna hijau cerah, rasa umami kuat.', 85000, 25),
