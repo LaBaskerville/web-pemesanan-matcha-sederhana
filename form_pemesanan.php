@@ -12,8 +12,6 @@ if (isset($_POST['pesan'])) {
     if ($nama_pelanggan === '' || $id_produk <= 0 || $jumlah < 1) {
         $pesan_error = "Data pesanan tidak valid!";
     } else {
-        // BUG DIPERBAIKI: sebelumnya variabel disisipkan langsung ke query
-        // (rentan SQL Injection). Sekarang pakai prepared statement.
         $cek_stok = $conn->prepare("SELECT nama_produk, harga, stok FROM produk WHERE id = ?");
         $cek_stok->bind_param("i", $id_produk);
         $cek_stok->execute();
@@ -22,8 +20,6 @@ if (isset($_POST['pesan'])) {
         if (!$data_produk) {
             $pesan_error = "Produk tidak ditemukan!";
         } elseif ($data_produk['stok'] < $jumlah) {
-            // BUG DIPERBAIKI: sebelumnya kondisi ini hanya mencetak alert
-            // tanpa 'exit', sehingga eksekusi PHP di bawahnya tetap lanjut.
             $pesan_error = "Maaf, Stok tidak mencukupi! Sisa stok: {$data_produk['stok']}";
         } else {
             // Gunakan TRANSACTION supaya insert pesanan + kurangi stok konsisten
@@ -58,8 +54,6 @@ if (isset($_POST['pesan'])) {
                 }
 
                 $conn->commit();
-                // BUG DIPERBAIKI: sebelumnya redirect ke 'index.php' yang
-                // tidak ada di project ini, sehingga akan error 404.
                 echo "<script>alert('Pesanan Berhasil!'); window.location='semantik.php';</script>";
                 exit();
 
