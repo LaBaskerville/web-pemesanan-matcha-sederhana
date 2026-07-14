@@ -5,8 +5,7 @@ if (session_status() === PHP_SESSION_NONE) {
 include 'koneksi.php';
 include 'auth.php';
 
-// BUG DIPERBAIKI: sebelumnya file ini bisa dipanggil siapa saja tanpa
-// login sebagai admin. Sekarang wajib login sebagai admin.
+//butuh role admin untuk mengakeses
 require_admin();
 
 if (isset($_POST['register'])) {
