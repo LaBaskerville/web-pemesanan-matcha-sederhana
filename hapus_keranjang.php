@@ -10,7 +10,6 @@ if (isset($_GET['id'])) {
     $id_user      = $_SESSION['user_id'];
     $id_keranjang = (int) $_GET['id'];
 
-    // Pastikan hanya menghapus item milik user yang sedang login
     $stmt = $conn->prepare("DELETE FROM keranjang WHERE id = ? AND id_user = ?");
     $stmt->bind_param("ii", $id_keranjang, $id_user);
 
