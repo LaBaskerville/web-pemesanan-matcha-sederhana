@@ -4,8 +4,6 @@
  * -------------------------------------------------------------
  * Panel USER: menampilkan riwayat pesanan & status pesanan
  * milik user yang sedang login saja (bukan milik user lain).
- * Ini melengkapi panel admin yang sudah bisa melihat SEMUA
- * pesanan di semantik.php.
  * -------------------------------------------------------------
  */
 if (session_status() === PHP_SESSION_NONE) {
@@ -14,8 +12,7 @@ if (session_status() === PHP_SESSION_NONE) {
 include 'koneksi.php';
 include 'auth.php';
 
-// Wajib login. Pesanan tamu (id_user NULL, dari form_pemesanan.php)
-// tidak bisa dilacak di sini karena memang tidak terhubung ke akun manapun.
+// Wajib login
 require_login();
 
 $id_user = $_SESSION['user_id'];
@@ -32,7 +29,6 @@ $stmtPesanan->execute();
 $daftar_pesanan = $stmtPesanan->get_result()->fetch_all(MYSQLI_ASSOC);
 
 // Ambil semua detail item sekaligus, lalu kelompokkan per id_pesanan
-// (menghindari query berulang di dalam loop / N+1 query)
 $detail_per_pesanan = [];
 if (!empty($daftar_pesanan)) {
     $ids = array_column($daftar_pesanan, 'id_pesanan');
