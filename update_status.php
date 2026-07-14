@@ -5,7 +5,7 @@ if (session_status() === PHP_SESSION_NONE) {
 include 'koneksi.php';
 include 'auth.php';
 
-// BUG DIPERBAIKI: endpoint ini sebelumnya bisa diakses tanpa login admin.
+// butuh role admin buat akses
 require_admin();
 
 if (isset($_POST['id_pesanan'])) {
@@ -19,8 +19,6 @@ if (isset($_POST['id_pesanan'])) {
         exit();
     }
 
-    // BUG DIPERBAIKI: sebelumnya rentan SQL Injection karena variabel
-    // disisipkan langsung ke query. Sekarang pakai prepared statement.
     $stmt = $conn->prepare("UPDATE pesanan SET status = ? WHERE id_pesanan = ?");
     $stmt->bind_param("si", $status_baru, $id);
 
