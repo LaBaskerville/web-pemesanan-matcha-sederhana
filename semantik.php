@@ -42,7 +42,7 @@ $is_admin = $is_login && $_SESSION['role'] === 'admin';
     width: 100%; 
     height: 100%; 
     overflow: auto; 
-    background-color: rgba(0,0,0,0.5); /* BUG DIPERBAIKI: sebelumnya rgba(0,0,0,0,5) (koma bukan titik) membuat overlay tidak tampil */
+    background-color: rgba(0,0,0,0.5); 
 }
 
 /* Kotak konten modal di tengah */
@@ -113,7 +113,7 @@ $is_admin = $is_login && $_SESSION['role'] === 'admin';
 
 /* Mengatur tombol login atau box status setelah login */
 .btn-login-trigger {
-    order: 2; /* Memaksa elemen login berada di sebelah kanan */
+    order: 2; 
     padding: 8px 16px;
     border: none;
     border-radius: 4px;
@@ -160,7 +160,7 @@ $is_admin = $is_login && $_SESSION['role'] === 'admin';
 }
 
 .order-table tbody tr:hover {
-    background-color: #f2f9f0; /* BUG DIPERBAIKI: sebelumnya '#f9ff' tanpa titik koma */
+    background-color: #f2f9f0; 
 }
 
 /* Style untuk Dropdown Aksi */
@@ -353,11 +353,6 @@ $is_admin = $is_login && $_SESSION['role'] === 'admin';
                     </thead>
                     <tbody>
                     <?php
-                    // BUG DIPERBAIKI: query sebelumnya hanya membaca tabel 'pesanan'
-                    // yang cuma menyimpan 1 produk per baris. Sekarang tabel
-                    // 'pesanan' (header transaksi) di-JOIN dengan 'pesanan_detail'
-                    // (rincian item) agar mendukung banyak produk per transaksi
-                    // hasil checkout keranjang.
                     $query = mysqli_query($conn, "
                         SELECT ps.id_pesanan, ps.nama_pelanggan, ps.status,
                                pd.jenis_matcha, pd.jumlah_pesan, pd.subtotal
